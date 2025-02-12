@@ -1,4 +1,3 @@
-
 terraform { 
   required_providers { 
     docker = { 
@@ -13,9 +12,10 @@ terraform {
 } 
 
 provider "docker" { 
-  host = "npipe:////./pipe/docker_engine" 
+  host = "npipe:////./pipe/docker_engine"  # ใช้สำหรับ Windows
 } 
 
+# รัน Powershell Script เพื่อ Build Docker Image
 resource "null_resource" "execute_script" {
   provisioner "local-exec" {
     command = "powershell.exe ./buildImg.ps1"
@@ -23,16 +23,21 @@ resource "null_resource" "execute_script" {
   }
 }
 
+# สร้าง Docker Image
 resource "docker_image" "my_app" {
   name = "node-express-app:latest"
   depends_on = [null_resource.execute_script]
 }
 
+# สร้าง Docker Container และแมปพอร์ต
 resource "docker_container" "my_container" {
-  name = "my-express-app"
+  name  = "my-express-app"
   image = docker_image.my_app.name
+
   ports {
     internal = 3002
-    external = 80
+    external = 8080  # เปลี่ยนเป็น 8080 เพื่อหลีกเลี่ยงปัญหากับพอร์ต 80
   }
+
+  restart = "always"
 }

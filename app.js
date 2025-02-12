@@ -18,19 +18,22 @@ const port = process.env.PORT || config.get("port");
 
 // declare your callback function the old way
 app.get('/', function (req, res) {
-  res.send('Welcome to the default page!  <br> <br>' +
-    'Try going to different URIs by adding these at the end: <br> <br>' +
-    '/hello <br>' +
-    '/big <br>' +
-    '/json <br>' +
-    '/greeting/yourname <br>' +
-    '/yo/Dr.Rogers <br>' +
-    '/fortune <br>' +
-    '/fancy/?first=Denise&last=Case <br>' +
-    '<br> <br>' +
-    'Fork the source code from <a href="https://github.com/denisecase/node-express-app">https://github.com/denisecase/node-express-app</a>'
-  )
+  res.send(`
+    <h1>Welcome to the default page!</h1>
+    <p>Try going to different URIs by clicking these links:</p>
+    <ul>
+      <li><a href="/hello">/hello</a></li>
+      <li><a href="/big">/big</a></li>
+      <li><a href="/json">/json</a></li>
+      <li><a href="/fortune">/fortune</a></li>
+      <li><a href="/greeting/yourname">/greeting/yourname</a></li>
+      <li><a href="/yo/Dr.Rogers">/yo/Dr.Rogers</a></li>
+      <li><a href="/fancy?first=Denise&last=Case">/fancy?first=Denise&last=Case</a></li>
+    </ul>
+    <p>Fork the source code from <a href="https://github.com/denisecase/node-express-app">GitHub</a></p>
+  `)
 })
+
 
 // or use the new arrow function syntax
 // respond with text

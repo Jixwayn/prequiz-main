@@ -2,6 +2,7 @@
 $imageName = "node-express-app"
 
 # Build the Docker image using the Dockerfile in the current directory
+Write-Output "Building Docker Image..."
 docker build -t "${imageName}" .
 
 # Output the result
